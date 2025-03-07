@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Ensure proper mobile scaling -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conor James</title>
+  <style>
+    /* Base Reset & Full Page Height with Bottom Gap */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      padding-bottom: 100px; /* extra 100px gap at the bottom */
+      background-color: black;
+      color: white;
+      font-size: 16px;
+    }
+    
+    /* Remove underlines from links */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Grid Layout for Desktop */
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: auto auto auto auto auto auto;
+      gap: 0;
+      grid-auto-flow: row;
+      width: 100%;
+    }
+    
+    /* Desktop-only settings */
+    @media (min-width: 769px) {
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+    }
+    
+    /* Grid Areas */
+    .header {
+      grid-area: 1 / 2 / 2 / 4;
+      background-color: black;
+      position: relative; /* Establish positioning context for overlay */
+    }
+    
+    /* Header overlay image */
+    .header-overlay {
+      position: absolute;
+      bottom: 4px;
+      right: 10px;
+      /* Adjust width/height as needed */
+      width: 50px;
+      z-index: 2;
+    }
+    
+    .links-bio {
+      grid-area: 2 / 2 / 3 / 4;
+      background-color: black;
+      margin-top: 20px;
+      /* Use flex to arrange image and content side-by-side */
+      display: flex;
+      align-items: flex-start;
+      padding: 0 20px;
+    }
+    
+    .bio-image {
+      flex: 0 0 200px;
+      margin-right: 20px;
+    }
+    
+    .bio-image img {
+      width: 100%;
+      display: block;
+    }
+    
+    .bio-content {
+      flex: 1;
+    }
+    
+    .bio-text {
+      margin-bottom: 10px;
+    }
+    
+    .single-line {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .bio-icons {
+      margin-top: 10px;
+    }
+    
+    .icon-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+    
+    .icon {
+      width: 60px;
+      display: block;
+    }
+    
+    .middle-bg {
+      grid-area: 3 / 2 / 4 / 4;
+      background-image: url(/images/starbg.gif);
+      background-size: cover;
+      background-position: center;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .youtube-player {
+      grid-area: 4 / 2 / 5 / 4;
+      background-color: black;
+    }
+    
+    .footer {
+      grid-area: 6 / 2 / 7 / 4;
+      background-color: black;
+    }
+    
+    .scrollbox {
+      width: 300px;
+      height: 100px;
+      background-color: black;
+      color: white;
+      padding: 10px;
+      overflow-y: auto;
+      border: 2px solid white;
+      margin: 0 auto;
+    }
+    
+    /* Mobile: Single Column Layout */
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto auto;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .header {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+      
+      .links-bio {
+        grid-area: 2 / 1 / 3 / 2;
+        padding: 0 10px;
+      }
+      
+      .middle-bg {
+        grid-area: 3 / 1 / 4 / 2;
+      }
+      
+      .youtube-player {
+        grid-area: 4 / 1 / 5 / 2;
+      }
+      
+      .footer {
+        grid-area: 5 / 1 / 6 / 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- HEADER -->
+    <div class="header">
+      <img src="/images/webbanner.jpg" alt="Conor James" style="width: 100%;">
+      <img src="/images/light25.gif" alt="Overlay" class="header-overlay">
+    </div>
+    
+    <!-- LINKS/BIO -->
+    <div class="links-bio">
+      <div class="bio-image">
+        <img src="/images/conor-2.jpg" alt="Picture of Conor">
+      </div>
+      <div class="bio-content">
+        <div class="bio-text">
+          <span class="single-line"><strong>SINGER PRODUCER + ARTIST</strong></span><br><br>
+          <span class="single-line"><strong>Booking:</strong> leopardlampbooking@gmail.com</span><br>
+          <span class="single-line"><strong>All others:</strong> conorjamessings@gmail.com</span>
+        </div>
+        <div class="bio-icons">
+          <div class="icon-row">
+            <a href="https://www.youtube.com/@conorthaxter" target="_blank">
+              <img src="/images/social_icons/youtube.png" alt="YouTube" class="icon">
+            </a>
+            <a href="https://www.instagram.com/conorthaxter" target="_blank">
+              <img src="/images/social_icons/ig.png" alt="Instagram" class="icon">
+            </a>
+            <a href="https://www.tiktok.com/@conorthaxter" target="_blank">
+              <img src="/images/social_icons/tiktok.png" alt="TikTok" class="icon">
+            </a>
+            <a href="https://bsky.app/profile/conorthaxter.bsky.social" target="_blank">
+              <img src="/images/social_icons/bluesky.png" alt="Bluesky" class="icon">
+            </a>
+          </div>
+          <div class="icon-row">
+            <a href="https://open.spotify.com/artist/43PMupxFa1VjUtszgeQFsi" target="_blank">
+              <img src="/images/social_icons/spotify.png" alt="Spotify" class="icon">
+            </a>
+            <a href="https://music.apple.com/us/artist/conor-james/1241787123" target="_blank">
+              <img src="/images/social_icons/apple music.png" alt="Apple Music" class="icon">
+            </a>
+            <a href="https://conorthaxter.bandcamp.com/" target="_blank">
+              <img src="/images/social_icons/bandcamp.png" alt="Bandcamp" class="icon">
+            </a>
+            <a href="https://pitch.com/v/conor-james-ng3fxe" target="_blank">
+              <img src="/images/presskit.png" alt="Press Kit" class="icon">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- MIDDLE BG -->
+    <div class="middle-bg">
+      <img src="/images/latestrelease.png" alt="Latest Release">
+      <br>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <a href="https://orcd.co/streamforrest" target="_blank">
+          <img src="/images/streamlink.png" alt="Cassette Tape" class="icon" style="margin-right: 20px; width: 70px;">
+        </a>
+<iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/track=462960910/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="https://conorthaxter.bandcamp.com/track/forrest">forrest by Conor James</a></iframe>
+      </div>
+      <br><br>
+      <p style="text-align: center; margin: 10px 0 0;"><strong>forrest -- lyrics</strong></p>
+      <div class="scrollbox" style="text-align: left;">
+          <p>
+            I’m big on you boy what can I say<br>
+            Pretty face<br>
+            Sweet to the taste<br>
+            Your credit’s okay<br>
+            You couldn’t even keep a pillow soft<br>
+            <br>
+            About everyday I come to your place<br>
+            We smoke a J in your Camry<br>
+            You got roommates so we gotta play<br>
+            In your clown car <br>
+            <br>
+            Pennywise<br>
+            Pound it like a hashtag<br>
+            Anytime<br>
+            You can come and grab that<br>
+            I’m so forward<br>
+            Forrest<br>
+            I’m over the moon in your arms<br>
+            I’m over the moon in your arms<br>
+            <br>
+            (Everything I thought it would be<br>
+            Boy it’s everything I thought it would be<br>
+            Yeah yeah yeah<br>
+            Everything I thought it would be<br>
+            It’s everything I thought it would be)<br>
+            <br>
+            I’m big on you boy I’m not gonna lie<br>
+            Out past 5 on a hell of a night<br>
+            I met your friends and they were a vibe<br>
+            At the Bayou<br>
+            <br>
+            Outta my sight but still in my mind<br>
+            I think you about you more than I confide<br>
+            You’re outta town or staying inside<br>
+            So I hit you with the<br>
+            <br>
+            Naked mirror portrait<br>
+            Be my muse<br>
+            In a white corset<br>
+            You’re so flawless<br>
+            Forrest<br>
+            I’m over the moon in your arms<br>
+            <br>
+            (Everything I thought it would be<br>
+            Boy it’s everything I thought it would be<br>
+            Yeah yeah yeah<br>
+            Everything I thought it would be<br>
+            It’s everything I thought it would be)<br>
+            <br>
+            (You don’t have to look too far to find your place)
+        </p>
+      </div>
+      <img src="/images/newestvideos.png" alt="Newest Videos">
+    </div>
+    
+    <!-- YOUTUBE PLAYER -->
+    <div class="youtube-player">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/IMnW9shXApk?si=KcGIvM990tRqwm1X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/fX_mthiOCgc?si=nTOi_3BKYM89wrTH" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <br><br>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/_MC8ED_Fv0w?si=c22O1wnE3vm9JClK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+    <!-- FOOTER -->
+    <div class="footer">
+      <!-- Footer content if any -->
+    </div>
+    
+  </div><!-- end .container -->
+</body>
+</html>
