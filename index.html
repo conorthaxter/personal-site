@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>conor</title>
+  
+  <!-- Roboto Mono -->
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" 
+    rel="stylesheet"
+  />
+  <!-- Google Fonts for Slabo, Bebas Neue, etc. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Slabo+27px&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+  />
+
+  <style>
+    /* Overall page settings */
+  html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;  /* For desktop layout */
+}
+    }
+      
+@media (max-width: 767px) {
+  /* Allow scrolling on mobile */
+  html, body {
+    overflow: auto;
+    height: auto;
+  }
+  
+  /* Keep the pinned image fixed on the left */
+  .pinned-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    /* Optionally adjust height for mobile if needed */
+    height: auto;
+  }
+  
+  /* Fix the link container to the right of the pinned image */
+  .link-container {
+    position: fixed;
+    top: 0;
+    left: 210px;
+    width: calc(100% - 210px);
+    /* Instead of taking the full viewport height, use auto (or a fixed height)
+       so that the link boxes stay put. For example, if you have 4 boxes of 60px each: */
+    height: 240px;
+    z-index: 11;
+  }
+  
+  /* Ensure the link boxes remain static (you can keep the same styling for .stacked-links) */
+  
+  /* Make the content area part of the normal flow, starting below the fixed elements.
+     Adjust margin-top to the total height of your fixed header (link container) */
+  .right-scroll {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 240px; /* set this to the height of your link container */
+    padding-top: 0;
+    height: auto;
+    overflow-y: visible;
+  }
+}
+    /* Left pinned image */
+.pinned-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background: url("/images/conor.png") center center no-repeat;
+  background-size: cover;
+  z-index: 10;
+}
+    /* Container for link boxes */
+.link-container {
+  margin-left: 210px;
+  height: 100vh;
+}
+    .stacked-links {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .link-box {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Roboto Mono", monospace;
+      color: #000;
+      text-decoration: none;
+      font-size: 1rem;
+      background: #fff;
+      overflow: hidden;
+      transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+    .link-box + .link-box {
+      border-top: 1px solid red;
+    }
+    .link-box:hover {
+      color: red;
+      font-weight: 500;
+      background-image: url("/images/hover.gif");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* MARQUEE COLUMN */
+.marquee-col {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 450px;
+  width: 70px;
+  background-color: red;
+  overflow: hidden;
+  z-index: 15;
+}
+
+/* Instead of a <marquee> tag, wrap your text in a div */
+.marquee-wrap {
+  display: block;
+  animation: marqueeAnimation 20s linear infinite;
+  animation-delay: -5s;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+
+@keyframes marqueeAnimation {
+  0% {
+    transform: translateY(70%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.marquee-text {
+  color: white;
+  line-height: 0.8;
+  /* maintain the scale if desired */
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 400;
+  font-size: 100px;
+  text-align: center;
+}
+    /* RIGHT SCROLLABLE AREA */
+    .right-scroll {
+      position: fixed;
+      top: 4rem;
+      bottom: 0;
+      left: 540px; /* 450 + 70 + 20px gap */
+      right: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      box-sizing: border-box;
+      z-index: 5;
+      font-family: "Roboto Mono", monospace;
+      padding-top: 20rem;
+    }
+    
+    /* NAVBAR */
+    .custom-navbar {
+      position: fixed;
+      top: 0;
+      left: 540px;
+      right: 0;
+      height: 4rem;
+      z-index: 20;
+      border-bottom: 1px solid red;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 1rem;
+      font-family: "Roboto Mono", monospace;
+    }
+    .my-other-sites {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      white-space: nowrap;
+    }
+    .my-other-sites-label {
+      margin: 0;
+      padding: 0;
+      font-weight: bold;
+    }
+    .nav-center {
+      text-align: center;
+      margin: 0 1rem;
+      flex: 1;
+    }
+    /* Home link using background images */
+    .home a.home-link {
+      display: block;
+      width: 60px;
+      height: 60px;
+      background: url("/images/home.png") center center no-repeat;
+      background-size: contain;
+    }
+    .home a.home-link:hover {
+      background-image: url("/images/home-on-fire.gif");
+    }
+    .home img { display: none; }
+
+    .home {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* DRAGGABLE CONTAINERS */
+    .draggable-container {
+      position: absolute;
+      top: 0;
+      left: 400px;
+      min-height: 1200px;
+      width: 1000px;
+      background-color: #fefefe;
+    }
+    .left-container {
+      position: absolute;
+      top: 50px;
+      left: 50px;
+      width: 200px;
+      height: 200px;
+    }
+    .draggable {
+      position: absolute;
+      cursor: grab;
+      width: 50px;
+      height: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .draggable:active {
+      cursor: grabbing;
+    }
+    /* Content Sections */
+    .content-section {
+      display: none;
+    }
+    .content-section.active {
+      display: block;
+    }
+    /* MUSIC SECTION – #music */
+    #music {
+      margin-top: -20rem;
+      padding-top: 0;
+    }
+    #music .forrest {
+      width: 100%;
+      position: relative;
+      aspect-ratio: 1/.7;
+      background: url('/images/BACKGR12.JPG') center center no-repeat;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+    #music .forrest-header {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+      margin: 0;
+      padding: 0;
+    }
+    #music .forrest-middle {
+      position: absolute;
+      bottom: -40px;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+    #music .background-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      z-index: -5;
+      background-color: #218611;
+    }
+    #music .forrest-widget {
+      width: 100%;
+      height: 124px;
+      background-color: green;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #music .forrest-pond {
+      margin-bottom: 5px;
+    }
+    #music .forrest-widget iframe {
+      border: 0;
+      width: 100%;
+      height: 42px;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    #music .forrest-stream-link {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 90px;
+      z-index: 9999;
+    }
+    #music .indigo-stream-link {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 25px;
+      z-index: 9999;
+    }
+    /* New lyrics container styling for music section */
+    .lyrics-container {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      width: 50%;
+      height: 30%;
+      z-index: 20;
+      border: 1px solid white;
+    }
+    .lyrics-container .lyrics-image {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lyrics-container .lyrics-image img {
+      max-height: 100%;
+      width: auto;
+    }
+    .lyrics-container .lyrics-text {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      overflow-y: auto;
+      font-family: "Roboto Mono", monospace;
+    }
+    .lyrics-container .lyrics-text h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+    #music .indigo {
+      width: 100%;
+      position: relative;
+      aspect-ratio: 1/.7;
+      background: url('/images/starbg.gif');
+      background-repeat: repeat;
+      background-size: cover;
+      margin-top: 30px;
+      padding: 0;
+    }
+    #music .indigo-widget {
+      width: 100%;
+      height: 124px;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #music .indigo-widget iframe {
+      border: 0;
+      width: 100%;
+      height: 42px;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    /* Email feedback styling */
+    #emailFeedback {
+      margin-left: 10px;
+      font-size: 0.9rem;
+      color: green;
+      display: none;
+    }
+    /* Video carousel iframes */
+    #videos .carousel-item iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    /* New social icons window styling (for home section) */
+    .social-icons-window {
+      background: url('/images/window.gif') center center no-repeat;
+      background-size: cover;
+      background-color: black;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 140%;
+        width: 120%;
+    }
+    .social-icons-window .social-icons-group {
+      display: flex;
+      gap: 1rem;
+      align-items:
+          center;
+    }
+    .social-icon {
+      height: 70px;
+      transition: transform 0.2s ease;
+      object-fit: contain;
+      position: absolute;
+    }
+    .social-icon:hover {
+      transform: scale(1.1);
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px; /* space between buttons */
+      margin: 40px auto;
+      width: fit-content;
+      padding: 20px;
+    }
+    .action-button {
+      display: block;
+      width: 200px;
+      height: 50px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      text-decoration: none;
+    }
+    .action-button.newest-song {
+      background-image: url('images/newest-song.jpg');
+    }
+    .action-button.newest-song:hover {
+      background-image: url('images/newest-song_pushed.jpg');
+    }
+    .action-button.latest-video {
+      background-image: url('images/latest-video.jpg');
+    }
+    .action-button.latest-video:hover {
+      background-image: url('images/latest-video_pushed.jpg');
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT-SIDE PINNED IMAGE -->
+  <div class="pinned-image"></div>
+
+  <!-- Link Container with reordered boxes -->
+  <div class="container-fluid link-container">
+    <div class="row h-100">
+      <div class="col-2 p-0">
+        <div class="stacked-links">
+          <a href="javascript:void(0)" onclick="showSection('home')" class="link-box yes">yes</a>
+          <a href="javascript:void(0)" onclick="showSection('music')" class="link-box music">music</a>
+          <a href="javascript:void(0)" onclick="showSection('videos')" class="link-box videos">videos</a>
+          <a href="/press-kit.html" class="link-box booking">booking</a>
+        </div>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+
+  <!-- MARQUEE COLUMN (Pinned) -->
+<div class="marquee-col">
+  <div class="marquee-wrap">
+    <div class="marquee-text">
+      N<br/>E<br/>W<br/><br/>S<br/>O<br/>N<br/>G<br/><br/>M<br/>A<br/>R<br/>C<br/>H<br/><br/>7
+    </div>
+  </div>
+</div>
+
+  <!-- NAVBAR -->
+  <nav class="custom-navbar">
+    <div class="my-other-sites">
+      <p class="my-other-sites-label mb-0">My other sites:</p>
+      <a href="http://holyg.host">
+        <img src="https://files.catbox.moe/5p0zdq.gif" alt="Extra Image">
+      </a>
+      <a href="http://headbodylegs.com">
+        <img src="/images/hbl.gif" alt="HBL">
+      </a>
+    </div>
+    <div class="nav-center">
+      <p class="mb-0" onclick="copyEmail()" style="cursor:pointer;">conorjamessings@gmail.com
+        <span id="emailFeedback">Email copied!</span>
+      </p>
+    </div>
+    <div class="home">
+      <a href="javascript:void(0)" onclick="showSection('home')" class="home-link"></a>
+    </div>
+  </nav>
+
+  <!-- RIGHT SCROLLABLE AREA: Content Sections -->
+  <div class="right-scroll">
+    <!-- Home Section -->
+    <div id="home" class="content-section active">
+      <div class="left-container">
+        <div class="social-icons-window">
+          <div class="social-icons-group">
+            <a href="https://www.youtube.com/@conorthaxter" target="_blank">
+              <img src="/images/social_icons/youtube.png" alt="YouTube icon" class="social-icon" style="top: 12px; left: 49px;" />
+            </a>
+            <a href="https://www.instagram.com/conorthaxter" target="_blank">
+              <img src="/images/social_icons/ig.png" alt="Instagram icon" class="social-icon" style="top: 12px; left: 124px; width: 55px;" />
+            </a>
+            <a href="https://www.tiktok.com/@conorthaxter" target="_blank">
+              <img src="/images/social_icons/tiktok.png" alt="Tiktok icon" class="social-icon" style="top: 75px; left: 124px;" />
+            </a>
+            <a href="https://bsky.app/profile/conorthaxter.bsky.social" target="_blank">
+              <img src="/images/social_icons/bluesky.png" alt="Bluesky icon" class="social-icon" style="top: 75px; left: 57px; width: 54px;" />
+            </a>
+          </div>
+          <div class="social-icons-group">
+            <a href="https://conorthaxter.bandcamp.com/" target="_blank">
+              <img src="/images/social_icons/bandcamp.png" alt="Bandcamp icon" class="social-icon" style="top:182px; left: 52px; width: 62px;"/>
+            </a>
+            <a href="https://open.spotify.com/artist/43PMupxFa1VjUtszgeQFsi" target="_blank">
+              <img src="/images/social_icons/spotify.png" alt="Spotify icon" class="social-icon" style="top: 152px; left: 124px; width: 55px;"/>
+            </a>
+            <a href="https://music.apple.com/us/artist/conor-james/1241787123" target="_blank">
+              <img src="/images/social_icons/apple music.png" alt="Apple Music icon" class="social-icon" style="top: 210px; left: 130px; width: 55px;" />
+            </a>
+          </div>
+        </div>
+                  <div class="button-container">
+    <a href="https://orcd.co/streamforrest" target="_blank" class="action-button newest-song"></a>
+    <a href="https://youtu.be/MoVyW0AkzBo" target="_blank" class="action-button latest-video"></a>
+  </div>
+      </div>
+      <div class="draggable-container">
+        <!-- Example draggable images -->
+        <img src="/images/b.png" class="draggable" alt="b" draggable="false" style="top:50px; left:26px; transform: rotate(12deg);">
+        <img src="images/a.png" class="draggable" alt="a" draggable="false" style="top:48px; left:64px; transform: rotate(-3deg);">
+        <img src="images/c.png" class="draggable" alt="c" draggable="false" style="top:53px; left:102px; transform: rotate(10deg);">
+        <img src="images/k.png" class="draggable" alt="k" draggable="false" style="top:50px; left:140px; transform: rotate(5deg);">
+        <img src="images/s.png" class="draggable" alt="s" draggable="false" style="top:51px; left:182px; transform: rotate(-7deg);">
+        <img src="images/e.png" class="draggable" alt="e" draggable="false" style="top:57px; left:228px; transform: rotate(-14deg);">
+        <img src="images/a.png" class="draggable" alt="a" draggable="false" style="top:49px; left:263px; transform: rotate(5deg);">
+        <img src="images/t.png" class="draggable" alt="t" draggable="false" style="top:56px; left:298px;">
+        <img src="images/b.png" class="draggable" alt="b" draggable="false" style="top:136px; left:20px; transform: rotate(7deg);">
+        <img src="images/e.png" class="draggable" alt="e" draggable="false" style="top:125px; left:60px; transform: rotate(-10deg);">
+        <img src="images/e.png" class="draggable" alt="e" draggable="false" style="top:128px; left:100px; transform: rotate(2deg);">
+        <img src="images/f.png" class="draggable" alt="f" draggable="false" style="top:130px; left:140px; transform: rotate(-6deg);">
+        <img src="images/c.png" class="draggable" alt="c" draggable="false" style="top:127px; left:180px; transform: rotate(-12deg);">
+        <img src="images/a.png" class="draggable" alt="a" draggable="false" style="top:145px; left:220px; transform: rotate(13deg);">
+        <img src="images/k.png" class="draggable" alt="k" draggable="false" style="top:139px; left:260px; transform: rotate(0deg);">
+        <img src="images/e.png" class="draggable" alt="e" draggable="false" style="top:130px; left:300px; transform: rotate(3deg);">
+        <img src="images/x.png" class="draggable" alt="x" draggable="false" style="top:18px; left:362px; transform: rotate(20deg);">
+        <img src="images/o.png" class="draggable" alt="o" draggable="false" style="top:41px; left:391px; transform: rotate(7deg);">
+        <img src="images/f.png" class="draggable" alt="f2" draggable="false" style="top:204px; left:0px; transform: rotate(-43deg);">
+        <img src="images/h.png" class="draggable" alt="h" draggable="false" style="top:253px; left:-10px; transform: rotate(-1deg);">
+        <img src="images/d.png" class="draggable" alt="d" draggable="false" style="top:240px; left:32px; transform: rotate(7deg);">
+      </div>
+    </div>
+
+    <!-- Music Section -->
+    <div id="music" class="content-section" style="padding-top:0;">
+      <div class="forrest">
+        <div class="forrest-header">
+          <img src="https://text.glitter-graphics.net/disco/f.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/o.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/r.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/r.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/e.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/s.gif" style="width:80px;" border="0">
+          <img src="https://text.glitter-graphics.net/disco/t.gif" style="width:80px;" border="0">
+        </div>
+        <div class="forrest-marquee"></div>
+        <div class="forrest-middle">
+          <div class="forrest-stream-link">
+            <a href="http://orcd.co/streamforrest">
+              <img src="/images/streamlink.png">
+            </a>
+          </div>
+          <img src="/images/tree14.gif" style="width:300px;">
+        </div>
+        <!-- New lyrics container for forrest -->
+        <div class="lyrics-container forrest-lyrics-container">
+          <div class="lyrics-image">
+            <img src="/images/forrest.png" alt="Forrest">
+          </div>
+          <div class="lyrics-text">
+            <h2>Lyrics:</h2>
+            I’m big on you boy what can I say<br>
+            Pretty face<br>
+            Sweet to the taste<br>
+            Your credit’s okay<br>
+            You couldn’t even keep a pillow soft<br>
+            <br>
+            About everyday I come to your place<br>
+            We smoke a J in your Camry<br>
+            You got roommates so we gotta play<br>
+            In your clown car <br>
+            <br>
+            Pennywise<br>
+            Pound it like a hashtag<br>
+            Anytime<br>
+            You can come and grab that<br>
+            I’m so forward<br>
+            Forrest<br>
+            I’m over the moon in your arms<br>
+            I’m over the moon in your arms<br>
+            <br>
+            (Everything I thought it would be<br>
+            Boy it’s everything I thought it would be<br>
+            Yeah yeah yeah<br>
+            Everything I thought it would be<br>
+            It’s everything I thought it would be)<br>
+            <br>
+            I’m big on you boy I’m not gonna lie<br>
+            Out past 5 on a hell of a night<br>
+            I met your friends and they were a vibe<br>
+            At the Bayou<br>
+            <br>
+            Outta my sight but still in my mind<br>
+            I think you about you more than I confide<br>
+            You’re outta town or staying inside<br>
+            So I hit you with the<br>
+            <br>
+            Naked mirror portrait<br>
+            Be my muse<br>
+            In a white corset<br>
+            You’re so flawless<br>
+            Forrest<br>
+            I’m over the moon in your arms<br>
+            <br>
+            (Everything I thought it would be<br>
+            Boy it’s everything I thought it would be<br>
+            Yeah yeah yeah<br>
+            Everything I thought it would be<br>
+            It’s everything I thought it would be)<br>
+            <br>
+            (You don’t have to look too far to find your place)
+          </div>
+        </div>
+        <div class="background-container"></div>
+      </div>
+      <div class="forrest-widget">
+        <div class="forrest-pond">
+          <img src="/images/pond.gif" style="max-width:90%;">
+        </div>
+        <iframe style="border: 0; width: 100%; height: 42px; display:inline-block; margin:0 auto;" 
+                src="https://bandcamp.com/EmbeddedPlayer/track=462960910/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" 
+                seamless>
+          <a href="https://conorthaxter.bandcamp.com/track/forrest">forrest by Conor James</a>
+        </iframe>
+      </div>
+      <div class="indigo">
+        <div class="indigo-stream-link">
+          <a href="http://orcd.co/streamindigodontbeshy">
+            <img src="/images/streamlink.png">
+          </a>
+        </div>
+        <img src="/images/indigodon'tbeshy.png" style="display:block; margin:0 auto;">
+        <!-- New lyrics container for indigo -->
+        <div class="lyrics-container indigo-lyrics-container">
+          <div class="lyrics-image">
+            <img src="/images/indigo.png" alt="Indigo">
+          </div>
+          <div class="lyrics-text">
+            <h2>Lyrics:</h2>
+            You just cut your hair and<br>
+            I pretended not to notice<br>
+            ‘Cause you never pull up <br>
+            The way you pull focus<br>
+            You put that tension<br>
+            In the room <br>
+            It takes a razor blade to<br>
+            Cut right through<br>
+            <br>
+            Baby <br>
+            Baby I want you<br>
+            If you couldn’t tell<br>
+            If I don’t wear it well<br>
+            You are not <br>
+            Leaving alone<br>
+            No more<br>
+            <br>
+            Don’t be shy<br>
+            Don’t be shy, baby don’t be shy<br>
+            <br>
+            Give me that long shot<br>
+            In the cold dark<br>
+            In the midnight h=our<br>
+            <br>
+            <br>
+            Come put your hands on it<br>
+            Ah<br>
+            I’m certain we’ll land on it<br>
+            Ah<br>
+            Got you pronouncing my name, ‘Indigo’<br>
+            Indigo<br>
+            Indigo<br>
+            Indigo<br>
+            Indigo<br>
+            <br>
+            I have a good day<br>
+            Even when I got a migraine<br>
+            Even if I kind of brown out<br>
+            Baby you my easy way out<br>
+            <br>
+            Gold to the middle<br>
+            Cut like diamond<br>
+            Backseat beefcake<br>
+            With a line up<br>
+            Carry my keepsake<br>
+            Hold my hair up<br>
+            Na na na na na na na<br>
+            Na na na na na na na<br>
+            Na na na na na na na<br>
+            Na na na na na na na<br>
+            <br>
+            Give me that long shot<br>
+            In the cold dark<br>
+            In the midnight hour<br>
+            <br>
+            (Give me that long shot<br>
+            In the cold dark<br>
+            In the midnight hour)
+          </div>
+        </div>
+        <img src="/images/clock.png" style="position:absolute; bottom:0; right:30px; width:88px;">
+      </div>
+      <div class="indigo-widget">
+       <iframe style="border: 0; width: 100%; height: 42px;" 
+               src="https://bandcamp.com/EmbeddedPlayer/track=3993987003/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" 
+               seamless>
+         <a href="https://conorthaxter.bandcamp.com/track/indigo-dont-be-shy">
+           indigo don't be shy by Conor James
+         </a>
+       </iframe>
+      </div>
+      <br><br>
+    </div>
+
+    <!-- Videos Section: Gallery Carousel -->
+<div id="videos" class="content-section" style="padding-top: 10px; margin-top: 0;">
+  <h4 id="videoTitle" style="text-align: center; margin: 0 0 10px;">
+    i make music full time and here's how (and why)
+  </h4>
+  <div class="d-flex flex-column align-items-center justify-content-center" style="height: auto;">
+    <div id="videosCarousel" class="carousel slide" data-bs-ride="false" style="width: 90%; max-width: 1200px;">
+      <div class="carousel-inner">
+        <!-- First item: i make music full time and here's how (and why) -->
+        <div class="carousel-item active">
+          <div class="ratio ratio-16x9" style="background: #000;">
+            <div class="d-flex h-100 justify-content-center align-items-center">
+              <iframe style="border: 0; width: 100%; height: 100%;"
+                      src="https://www.youtube.com/embed/MoVyW0AkzBo?si=V7w35vwucejZEEbS"
+                      title="YouTube video player" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        </div>
+        <!-- Second item: indigo live performance -->
+        <div class="carousel-item">
+          <div class="ratio ratio-16x9" style="background: #000;">
+            <div class="d-flex h-100 justify-content-center align-items-center">
+              <iframe style="border: 0; width: 100%; height: 100%;"
+                      src="https://www.youtube.com/embed/_MC8ED_Fv0w?si=nBJRpCVbd4xb4X7o"
+                      title="YouTube video player" frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+              </iframe>
+            </div>
+          </div>
+        </div>
+        <!-- Third item: forrest visualizer -->
+        <div class="carousel-item">
+          <div class="ratio ratio-16x9" style="background: #000;">
+            <div class="d-flex h-100 justify-content-center align-items-center">
+              <h2 class="text-white">Forrest Visualizer</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center align-items-center mt-2">
+      <a href="#" data-bs-target="#videosCarousel" data-bs-slide="prev">
+        <img src="/images/left-arrow.png" alt="Previous" style="cursor: pointer; margin-right: 10px; width: 45px;"/>
+      </a>
+      <a href="#" data-bs-target="#videosCarousel" data-bs-slide="next">
+        <img src="/images/right-arrow.png" alt="Next" style="cursor: pointer; width: 45px;"/>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+  </div> <!-- end .right-scroll -->
+
+  <!-- DRAGGABLE SCRIPT -->
+  <script>
+    let activeElement = null;
+    let offsetX = 0;
+    let offsetY = 0;
+    document.addEventListener('mousedown', function(e) {
+      if (e.target.classList.contains('draggable')) {
+        e.preventDefault();
+        activeElement = e.target;
+        const rect = activeElement.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        activeElement.style.zIndex = 9999;
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+      }
+    });
+    function handleMouseMove(e) {
+      if (!activeElement) return;
+      e.preventDefault();
+      const scrollTop = document.querySelector('.right-scroll').scrollTop;
+      const containerRect = activeElement.parentElement.getBoundingClientRect();
+      const newLeft = e.clientX - containerRect.left - offsetX;
+      const newTop  = (e.clientY + scrollTop) - containerRect.top - offsetY;
+      activeElement.style.left = newLeft + 'px';
+      activeElement.style.top  = newTop + 'px';
+    }
+    function handleMouseUp() {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      activeElement = null;
+    }
+  </script>
+
+  <!-- Section Toggle Script -->
+  <script>
+  function showSection(sectionId) {
+    // Remove 'active' class from all sections
+    document.querySelectorAll('.content-section').forEach(function(section) {
+      section.classList.remove('active');
+    });
+    
+    // Add 'active' class to the selected section
+    var selectedSection = document.getElementById(sectionId);
+    selectedSection.classList.add('active');
+    
+      // For the videos tab, disable scrolling; for links and others, enable scrolling.
+      if(sectionId === 'videos'){
+          document.querySelector('.right-scroll').style.overflowY = 'hidden';
+          document.querySelector('.right-scroll').style.paddingTop = '0';
+      } else {
+          document.querySelector('.right-scroll').style.overflowY = 'auto';
+          if(sectionId === 'links'){
+              document.querySelector('.right-scroll').style.paddingTop = '0';
+          } else {
+              document.querySelector('.right-scroll').style.paddingTop = '20rem';
+          }
+      }
+    
+      // If the music section is activated, refresh Bandcamp iframes.
+      if (sectionId === 'music') {
+        const bandcampIframes = document.querySelectorAll('iframe[src*="bandcamp.com/EmbeddedPlayer"]');
+        bandcampIframes.forEach(function(iframe) {
+          iframe.src = iframe.src;
+        });
+      }
+    }
+      
+  </script>
+
+  <!-- Email Copy Script -->
+  <script>
+    function copyEmail() {
+      const email = "conorjamessings@gmail.com";
+      navigator.clipboard.writeText(email).then(function() {
+        const feedbackEl = document.getElementById("emailFeedback");
+        feedbackEl.style.display = "inline";
+        setTimeout(function() {
+          feedbackEl.style.display = "none";
+        }, 2000);
+      }, function(err) {
+        console.error("Could not copy text: ", err);
+      });
+    }
+  </script>
+
+  <!-- Video Carousel Title Update Script -->
+  <script>
+    const videoTitles = [
+    "i make music full time and here's how (and why)",
+    "indigo live performance",
+    "Forrest Visualizer"
+  ];
+  const videosCarousel = document.getElementById('videosCarousel');
+  videosCarousel.addEventListener('slid.bs.carousel', function (event) {
+    document.getElementById('videoTitle').textContent = videoTitles[event.to];
+  });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
